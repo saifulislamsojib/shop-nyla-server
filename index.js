@@ -25,8 +25,8 @@ const client = new MongoClient(uri, {
     res.send("Hello Shop Nyla!");
   });
 
-  productsCollection.countDocuments().then((count) => {
-    app.get("/products", (req, res) => {
+  app.get("/products", (req, res) => {
+    productsCollection.countDocuments().then((count) => {
       productsCollection
         .aggregate([{ $sample: { size: count } }])
         .toArray((_error, products) => {
